@@ -1,0 +1,16 @@
+{
+    "name": "table_football/league",
+    "description": "System to manage table football leagues. 2vs2 players",
+    "authors": [
+        {
+            "name": "Radosław Malinowski",
+            "email": "malinowski.rad@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {"TableFootball\\League": "app/"}
+    }
+}

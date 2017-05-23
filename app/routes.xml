@@ -1,0 +1,27 @@
+<?xml version='1.0' standalone='yes'?>
+<paths>
+    <default>
+        <path method="GET">
+            <controller>Leagues</controller>
+            <action>getList</action>
+        </path>
+    </default>
+
+    <path method="GET">
+        <uri>{leagueId}/matches</uri>
+        <controller>Matches</controller>
+        <action>getList</action>
+    </path>
+
+    <path method="PUT">
+        <uri>{leagueId}/match/{matchId}</uri>
+        <controller>Matches</controller>
+        <action>updateScore</action>
+    </path>
+
+    <path method="GET">
+        <uri>{leagueId}/score</uri>
+        <controller>League</controller>
+        <action>getScores</action>
+    </path>
+</paths>
