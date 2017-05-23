@@ -16,6 +16,9 @@ class LeaguesService
 
     public function addLeague(string $name, string $description) : int
     {
+        $name = htmlspecialchars($name);
+        $description = htmlspecialchars($description);
+
         $sql = 'INSERT INTO `leagues`
             SET `name` = :name, `description` = :description';
 

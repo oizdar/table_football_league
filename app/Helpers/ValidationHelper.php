@@ -33,4 +33,11 @@ class ValidationHelper
             throw new InvalidArgumentException("Field: \"$fieldName\" maximum length reached. Max characters number is: $length");
         }
     }
+
+    public static function checkScoreFormat(string $score)
+    {
+        if(!preg_match('/^\d+(-|:)\d+$/', $score)) {
+            throw new InvalidArgumentException('Invalid Score format');
+        }
+    }
 }

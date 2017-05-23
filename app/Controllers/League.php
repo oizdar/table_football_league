@@ -4,6 +4,7 @@ namespace TableFootball\League\Controllers;
 
 use TableFootball\League\Core\AbstractController;
 use TableFootball\League\Core\Response;
+use TableFootball\League\Exceptions\InvalidArgumentException;
 use TableFootball\League\Helpers\ValidationHelper;
 use TableFootball\League\Services\LeaguesService;
 use TableFootball\League\Services\MatchesService;
@@ -34,11 +35,30 @@ class League extends AbstractController
         $this->matchesService->renderMatchesSchedule($leagueId, $params['players']);
         $matches = $this->matchesService->getLeagueMatches($leagueId);
 
-        return new Response(200, $matches);
+        return new Response(201, $matches);
     }
 
     public function getList()
     {
         return new Response(200, $this->leaguesService->getAll());
+    }
+
+    public function updateScore(int $leagueId, int $matchId)
+    {
+        $score = $this->request->getParam('score');
+        if($score === null) {
+            throw new InvalidArgumentException('Field score is required and should not be empty');
+        }
+        ValidationHelper::checkScoreFormat($score);
+        $this->matchesService->updateMatchScore($leagueId, $matchId, $score);
+        $match = $this->matchesService->getMatch($leagueId, $matchId);
+        return new Response(200, $match);
+    }
+
+    public function getScores(int $leagueId)
+    {
+        $scores = $this->matchesService->getScores($leagueId);
+
+        return new Response(200, $scores);
     }
 }

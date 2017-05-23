@@ -19,14 +19,14 @@
         <action>createLeague</action>
     </path>
 
-    <path method="PUT">
+    <path method="POST">
         <uri>{leagueId}/match/{matchId}</uri>
-        <controller>Matches</controller>
+        <controller>League</controller>
         <action>updateScore</action>
     </path>
 
     <path method="GET">
-        <uri>{leagueId}/score</uri>
+        <uri>{leagueId}/scores</uri>
         <controller>League</controller>
         <action>getScores</action>
     </path>
