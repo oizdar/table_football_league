@@ -11,4 +11,9 @@ class App
         $this->request = Request::getRequest();
     }
 
+    public function execute()
+    {
+        return new Response(200, 'test', 'OK');
+    }
+
 }

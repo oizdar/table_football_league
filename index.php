@@ -11,5 +11,6 @@ if($dev) {
     ini_set('display_errors', 1);
 }
 
-new App();
+$app = new App();
+echo $app->execute();
 
