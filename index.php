@@ -11,6 +11,8 @@ if($dev) {
     ini_set('display_errors', 1);
 }
 
+set_exception_handler(['TableFootball\League\Helper\ExceptionHandler', 'handler']);
+
 $app = new App();
 echo $app->execute();
 
