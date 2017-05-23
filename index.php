@@ -1,4 +1,6 @@
 <?php
+use TableFootball\League\Core\App;
+
 
 include(__DIR__ . '/autoload.php');
 
@@ -9,4 +11,5 @@ if($dev) {
     ini_set('display_errors', 1);
 }
 
-echo 'example';
+new App();
+
