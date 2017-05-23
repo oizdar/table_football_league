@@ -2,9 +2,10 @@
 
 namespace TableFootball\League\Controllers;
 
+use TableFootball\League\Core\AbstractController;
 use TableFootball\League\Core\Response;
 
-class Leagues
+class Leagues extends AbstractController
 {
     public function getList()
     {
