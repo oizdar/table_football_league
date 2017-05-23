@@ -2,15 +2,21 @@
 <paths>
     <default>
         <path method="GET">
-            <controller>Leagues</controller>
+            <controller>League</controller>
             <action>getList</action>
         </path>
     </default>
 
     <path method="GET">
         <uri>{leagueId}/matches</uri>
-        <controller>Matches</controller>
-        <action>getList</action>
+        <controller>League</controller>
+        <action>getMatches</action>
+    </path>
+
+    <path method="POST">
+        <uri>league</uri>
+        <controller>League</controller>
+        <action>createLeague</action>
     </path>
 
     <path method="PUT">

@@ -1,5 +1,5 @@
 <?php
-namespace TableFootball\League\Helper;
+namespace TableFootball\League\Helpers;
 
 use TableFootball\League\Core\Response;
 use TableFootball\League\Exceptions\LeagueException;
