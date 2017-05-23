@@ -1,0 +1,30 @@
+web:
+    image: nginx:1.10.0
+    ports:
+        - "8080:80"
+    links:
+        - fpm
+    volumes:
+        - ./:/var/www
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
+fpm:
+    build: ./docker/fpm
+    working_dir: /var/www
+    expose:
+        - "9000"
+    links:
+        - mariadb
+    volumes:
+        - ./:/var/www
+    env_file: .env
+
+mariadb:
+  ports:
+    - "3305:3306"
+  image: mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: rootpassword
+    MYSQL_DATABASE: database
+    MYSQL_USER: user
+    MYSQL_PASSWORD: mypassword
