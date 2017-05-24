@@ -31,6 +31,6 @@ class LeagueList
     }
 
     showMatches(id) {
-        console.log(id);
+        Page.renderMatchesList(data)
     }
 }

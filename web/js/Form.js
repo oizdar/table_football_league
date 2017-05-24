@@ -14,6 +14,10 @@ class Form {
         playersNumberInput.on('change', function() {
             this.updateInputs(playersNumberInput.val());
         }.bind(this))
+        this.form.on('submit', function(e) {
+            this.createLeague();
+            e.preventDefault();
+        }.bind(this))
     }
 
     renderInputs(players) {
@@ -56,9 +60,29 @@ class Form {
         $('[type="submit"]').remove().insertAfter($('.input-group:last'));
     }
 
-
+    createLeague() {
+        let data = {
+            name: this.form.find('[name="name"]').val(),
+            description: this.form.find('[name="description"]').val(),
+            players: this.form.find('[name="player[]"]').map(function() {return $(this).val();}).get()
+        };
+        $.ajax({
+            method: 'POST',
+            url: '/api/league',
+            data: data,
+            success: function (res) {
+                if(res.code === 'OK') {
+                    console.log(res);
+                    Page.renderMatchesList(res.data);
+                }
+            },
+            error: function (error) {
+                error = JSON.parse(error.responseText).data.error;
+                Page.showError(error, false);
+            }
+        })
+    }
 }
-
-let form = new Form()
+let form = new Form();
 form.renderInputs($('#players').val());
 

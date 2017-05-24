@@ -13,7 +13,7 @@ class ExceptionHandler
             throw $exception;
         }
         if($exception instanceof LeagueException) {
-            $httpCode = $exception->getCode();
+            $httpCode = $exception->getHttpCode();
         } else {
             $httpCode = 500;
         }
