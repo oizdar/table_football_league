@@ -2,7 +2,8 @@ class League
 {
     constructor(leagueId) {
         this.leagueId = leagueId;
-        this.tableBody = $('#matches_body');
+        this.tableBodyMatches = $('#matches_body');
+        this.tableBodyScores = $('#scores_body');
         this.row = '<tr></tr>';
         this.th = '<th></th>';
         this.td = '<td></td>';
@@ -31,7 +32,7 @@ class League
                 row.append($(this.td).text(match.score));
             }
 
-            this.tableBody.append(row);
+            this.tableBodyMatches.append(row);
             orderNumber++;
         }.bind(this));
 
@@ -88,6 +89,37 @@ class League
     }
 
     renderScoresTable(data) {
+        let orderNumber = 1;
+        for(let key in data) {
+            if(data.hasOwnProperty(key)) {
+                console.log(key);
+                console.log(data[key]);
+                let row = $(this.row);
+                let th = $(this.th);
+                th.text(orderNumber+'.');
+                th.attr('scope', 'row');
+                row.append(th);
+                row.append($(this.td).text(key));
+                row.append($(this.td).text(data[key].points));
+                row.append($(this.td).text(data[key].matches));
 
+                if(orderNumber===1) {
+                    row.addClass('success');
+                }
+                if(orderNumber===2) {
+                    row.addClass('active')
+                }
+                if(orderNumber===3) {
+                    row.addClass('warning')
+                }
+
+                this.tableBodyScores.append(row);
+                orderNumber++;
+            }
+        }
+
+        $('#league-scores-link').on('click', function() {
+            Page.renderLeagueMatches(this.leagueId, $('#navbar-text').text());
+        }.bind(this))
     }
 }

@@ -71,7 +71,6 @@ class NavBar
         } else {
             item.on('click', function(e) {
                 e.preventDefault();
-                console.log(data);
                 let params = data.join('","');
                 eval('Page.'+element.onclickFunction+'("'+params+'");');
             });
