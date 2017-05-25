@@ -72,7 +72,6 @@ class Form {
             data: data,
             success: function (res) {
                 if(res.code === 'OK') {
-                    console.log(res.data);
                     Page.renderLeagueMatches(res.data.id, res.data.name);
                 }
             },

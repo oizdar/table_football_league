@@ -67,7 +67,9 @@ class NavBar
         let item = $(this.navbarElement);
         if(element.active === true) {
             item.addClass('active');
-
+            item.on('click', function(e) {
+                e.preventDefault();
+            });
         } else {
             item.on('click', function(e) {
                 e.preventDefault();

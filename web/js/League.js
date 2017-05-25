@@ -92,8 +92,6 @@ class League
         let orderNumber = 1;
         for(let key in data) {
             if(data.hasOwnProperty(key)) {
-                console.log(key);
-                console.log(data[key]);
                 let row = $(this.row);
                 let th = $(this.th);
                 th.text(orderNumber+'.');
