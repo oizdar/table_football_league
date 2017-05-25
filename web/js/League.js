@@ -87,4 +87,7 @@ class League
         return td;
     }
 
+    renderScoresTable(data) {
+
+    }
 }

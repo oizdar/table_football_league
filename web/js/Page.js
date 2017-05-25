@@ -7,7 +7,8 @@ class Page
             '</div>';
     }
 
-    static renderDefault() {
+    static renderDefault()
+    {
         let navbar = new NavBar();
         navbar.renderDefault();
         $.ajax({
@@ -26,7 +27,8 @@ class Page
         });
     }
 
-    static renderCreateLeagueForm() {
+    static renderCreateLeagueForm()
+    {
         let navbar = new NavBar();
         navbar.nav.default[0].active = false;
         navbar.nav.default[1].active = true;
@@ -42,7 +44,8 @@ class Page
         });
     }
 
-    static showError(error, clearContent = true) {
+    static showError(error, clearContent = true)
+    {
         if(clearContent === true) {
             let navbar = new NavBar();
             navbar.nav.default[0].active = false;
@@ -59,37 +62,49 @@ class Page
         }
     }
 
-    static renderLeagueMatches(leagueId, leagueName) {
-            let navbar = new NavBar();
-            navbar.render('league', leagueName);
-
-            $.ajax({
-                method: 'GET',
-                url: '/api/'+leagueId+'/matches',
-                success: function (res) {
-                    if(res.code === 'OK') {
-                        $('#main-container').load('matchesTable.html', function() {
-                            let league = new League(leagueId);
-                            league.renderMatchesTable(res.data);
-                        });
-                    }
-                },
-                error: function (error) {
-                    error = JSON.parse(error.responseText).data.error;
-                    Page.showError(error, false);
+    static renderLeagueMatches(leagueId, leagueName)
+    {
+        let navbar = new NavBar([leagueId, leagueName]);
+        navbar.render('league', leagueName);
+        $.ajax({
+            method: 'GET',
+            url: '/api/'+leagueId+'/matches',
+            success: function (res) {
+                if(res.code === 'OK') {
+                    $('#main-container').load('matchesTable.html', function() {
+                        let league = new League(leagueId);
+                        league.renderMatchesTable(res.data);
+                    });
                 }
-            })
-
-
+            },
+            error: function (error) {
+                error = JSON.parse(error.responseText).data.error;
+                Page.showError(error, false);
+            }
+        })
     }
 
     static renderLeagueScores(leagueId, leagueName) {
-        console.log(leagueId);
-        console.log(leagueName);
-        let navbar = new NavBar();
+        let navbar = new NavBar([leagueId, leagueName]);
         navbar.nav.league[1].active = false;
         navbar.nav.league[2].active = true;
         navbar.render('league', leagueName);
-        console.log('test');
+
+        $.ajax({
+            method: 'GET',
+            url: '/api/'+leagueId+'/scores',
+            success: function (res) {
+                if(res.code === 'OK') {
+                    $('#main-container').load('scoresTable.html', function() {
+                        let league = new League(leagueId);
+                        league.renderScoresTable(res.data);
+                    });
+                }
+            },
+            error: function (error) {
+                error = JSON.parse(error.responseText).data.error;
+                Page.showError(error, false);
+            }
+        })
     }
 }
