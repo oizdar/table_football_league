@@ -17,30 +17,49 @@ class MatchesService
 
     public function renderMatchesSchedule(int $leagueId, array $players)
     {
-        $pairs = $this->combinePairs($players);
-        $this->insertMatches($leagueId, $pairs);
+        $contestants = $this->prepareMatchesContestants($players);
+        $this->insertMatches($leagueId, $contestants);
+    }
+
+    protected function prepareMatchesContestants(array $players)
+    {
+        $pairs = $this->createAllPairs($players);
+        $count = count($pairs);
+        $contestants = [];
+        for($x = 0; $x < $count-1; $x++) {
+            for($y = $x+1; $y < $count; $y++) {
+                if($this->arePlayersUnique($pairs[$x], $pairs[$y])) {
+                    $contestants[] = array_merge($pairs[$x], $pairs[$y]);
+                };
+            }
+        }
+
+        return $contestants;
+    }
+
+    protected function createAllPairs($players)
+    {
+        $pairs = [];
+        $count = count($players);
+        for($x = 0; $x < $count-1; $x++) {
+            for($y = $x+1; $y < $count; $y++) {
+                $pairs[] = [$players[$x], $players[$y]];
+            }
+        }
         return $pairs;
     }
 
-    protected function combinePairs(array $players)
+    protected function arePlayersUnique(array $teamA, array $teamB) :bool
     {
-        $teams = [];
-        $playersNumber = count($players);
-        $ATeam[] = $players[0];
-        for($x = 1; $x < $playersNumber; $x++) {
-            $ATeam[1] = $players[$x];
-            $playersLeft = array_values(array_diff($players, $ATeam));
-            $playersLeftNumber = count($playersLeft);
-            for($y = 0; $y < $playersLeftNumber-1; $y++) {
-                $BTeam[0] = $playersLeft[$y];
-                for($z = $y+1; $z<$playersLeftNumber; $z++) {
-                    $BTeam[1] = $playersLeft[$z];
-                    $teams[] = array_merge($ATeam, $BTeam);
-                }
-                $BTeam = [];
-            }
+        if(count($teamA) !== 2 || count($teamA) !== count($teamB)) {
+            return false;
         }
-        return $teams;
+
+        if(in_array($teamA[0], $teamB) || in_array($teamA[1], $teamB)) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function insertMatches(int $leagueId, array $matchesPairs)
