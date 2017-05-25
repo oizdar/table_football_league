@@ -39,4 +39,13 @@ class LeaguesService
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
+    public function getOne(int $leagueId)
+    {
+        $sql = 'SELECT * FROM `leagues` WHERE `id` = :leagueId';
+        $stmt = $this->db->prepare($sql);
+        if(!$stmt->execute(['leagueId' => $leagueId])) {
+            throw new DatabaseException('Database error occurred, try again later. If error repeats contact administrator.');
+        };
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }

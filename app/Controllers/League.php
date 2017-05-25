@@ -33,9 +33,8 @@ class League extends AbstractController
 
         $leagueId = $this->leaguesService->addLeague($params['name'], $params['description']);
         $this->matchesService->renderMatchesSchedule($leagueId, $params['players']);
-        $matches = $this->matchesService->getLeagueMatches($leagueId);
 
-        return new Response(201, $matches);
+        return new Response(201, $this->leaguesService->getOne($leagueId));
     }
 
     public function getList()
@@ -62,9 +61,9 @@ class League extends AbstractController
         return new Response(200, $scores);
     }
 
-    public function getMatches(int $leagueId)
+    public function getMatches($leagueId)
     {
-        $matches = $this->matchesService->getLeagueMatches($leagueId);
+        $matches = $this->matchesService->getLeagueMatches((int)$leagueId);
         return new Response(200, $matches);
     }
 }
