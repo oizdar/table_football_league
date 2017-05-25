@@ -7,33 +7,33 @@ class NavBar
                     active: true,
                     name: 'Leagues',
                     onclickFunction: 'renderDefault',
-                    glyphicon: false
+                    glyphicon: 'glyphicon-list-alt'
                 },
                 {
                     active: false,
                     name: 'Create League',
                     onclickFunction: 'renderCreateLeagueForm',
-                    glyphicon: false
+                    glyphicon: 'glyphicon-edit'
                 }
             ],
             league: [
                 {
                     active: false,
-                    name: '<< Back to list',
+                    name: 'Back',
                     onclickFunction: 'renderDefault',
-                    glyphicon: 'glyphicon glyphicon-chevron-left'
+                    glyphicon: 'glyphicon-chevron-left'
                 },
                 {
                     active: true,
                     name: 'Matches',
                     onclickFunction: 'renderLeagueMatches',
-                    glyphicon: false
+                    glyphicon: 'glyphicon-tags'
                 },
                 {
                     active: false,
                     name: 'Scores',
                     onclickFunction: 'renderLeagueScores',
-                    glyphicon: false
+                    glyphicon: 'glyphicon-king'
                 }
             ]
         };
@@ -43,6 +43,7 @@ class NavBar
         this.navbarList = '<ul class="nav navbar-nav"></ul>';
         this.navbarElement = '<li><a href></a></li>';
         this.rightText = '<p id="navbar-text" class="navbar-text navbar-right"></p>';
+        this.glyphicon = '<span class="glyphicon"></span>';
     }
 
     renderDefault() {
@@ -67,8 +68,13 @@ class NavBar
                 return eval('Page.'+element.onclickFunction+'()');
             });
         }
-
-        item.find('a').text(element.name);
+        if(element.glyphicon !== false) {
+            let glyphicon = $(this.glyphicon);
+            glyphicon.addClass(element.glyphicon);
+            console.log(glyphicon);
+            item.find('a').append(glyphicon);
+        }
+        item.find('a').append(' '+element.name);
         return item;
     }
 
