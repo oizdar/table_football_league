@@ -1,4 +1,4 @@
-class LeagueList
+class LeaguesList
 {
     constructor(data) {
         this.data = data;
@@ -26,11 +26,10 @@ class LeagueList
         let item = this.item.clone();
         item.append(this.header.text(league.name).clone());
         item.append(this.description.text(league.description).clone());
-        item.on('click', function() {return this.showMatches(league.id)}.bind(this));
+        item.on('click', function() {
+            Page.renderLeagueMatches(league.id, league.name)
+        }.bind(this));
         return item;
     }
 
-    showMatches(id) {
-        Page.renderMatchesList(data)
-    }
 }

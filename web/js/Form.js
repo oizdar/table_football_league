@@ -13,7 +13,7 @@ class Form {
         });
         playersNumberInput.on('change', function() {
             this.updateInputs(playersNumberInput.val());
-        }.bind(this))
+        }.bind(this));
         this.form.on('submit', function(e) {
             this.createLeague();
             e.preventDefault();
@@ -72,7 +72,6 @@ class Form {
             data: data,
             success: function (res) {
                 if(res.code === 'OK') {
-                    console.log(res);
                     Page.renderMatchesList(res.data);
                 }
             },

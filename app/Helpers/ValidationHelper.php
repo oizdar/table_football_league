@@ -36,7 +36,7 @@ class ValidationHelper
 
     public static function checkScoreFormat(string $score)
     {
-        if(!preg_match('/^\d+(-|:)\d+$/', $score)) {
+        if(!preg_match('/^\d+\s*(-|:)\s*\d+$/', $score)) {
             throw new InvalidArgumentException('Invalid Score format');
         }
     }

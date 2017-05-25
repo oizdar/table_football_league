@@ -45,6 +45,7 @@ class MatchesService
 
     protected function insertMatches(int $leagueId, array $matchesPairs)
     {
+        $dataToInsert = [];
         foreach($matchesPairs as $data) {
             $dataToInsert[] = $leagueId;
             foreach($data as $value) {
@@ -106,7 +107,9 @@ class MatchesService
         };
 
         $matchScores = preg_split('/(-|:)/', $scoreId);
-
+        if((int)$matchScores[0] === (int)$matchScores[1]) {
+            throw new InvalidArgumentException('Draws are not allowed. Please play extra time. ');
+        };
         $sql = 'UPDATE `matches` 
             SET `team_1_score` = :scoreLeft, `team_2_score` = :scoreRight
             WHERE `id` = :matchId';

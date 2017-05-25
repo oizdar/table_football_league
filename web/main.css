@@ -1,3 +1,13 @@
 .input-group {
     padding: 0.5em 0;
 }
+
+.team_header, .hash_header, .result_header, .score{
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+.invalid-input-value:focus {
+    color: #a94442;
+    background-color: #f2dede;
+}

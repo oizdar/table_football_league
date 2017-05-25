@@ -6,12 +6,34 @@ class NavBar
                 {
                     active: true,
                     name: 'Leagues',
-                    onclickFunction: 'renderDefault'
+                    onclickFunction: 'renderDefault',
+                    glyphicon: false
                 },
                 {
                     active: false,
                     name: 'Create League',
-                    onclickFunction: 'renderCreateLeagueForm'
+                    onclickFunction: 'renderCreateLeagueForm',
+                    glyphicon: false
+                }
+            ],
+            league: [
+                {
+                    active: false,
+                    name: '<< Back to list',
+                    onclickFunction: 'renderDefault',
+                    glyphicon: 'glyphicon glyphicon-chevron-left'
+                },
+                {
+                    active: true,
+                    name: 'Matches',
+                    onclickFunction: 'renderLeagueMatches',
+                    glyphicon: false
+                },
+                {
+                    active: false,
+                    name: 'Scores',
+                    onclickFunction: 'renderLeagueScores',
+                    glyphicon: false
                 }
             ]
         };
@@ -20,7 +42,7 @@ class NavBar
         this.navbarContainer = $('<div class="collapse navbar-collapse"></div>');
         this.navbarList = '<ul class="nav navbar-nav"></ul>';
         this.navbarElement = '<li><a href></a></li>';
-        this.rightText = '<p class="navbar-text navbar-right"></p>';
+        this.rightText = '<p id="navbar-text" class="navbar-text navbar-right"></p>';
     }
 
     renderDefault() {
@@ -48,5 +70,18 @@ class NavBar
 
         item.find('a').text(element.name);
         return item;
+    }
+
+    render(navbarName, leagueName) {
+        let navbarList = $(this.navbarList);
+        this.nav[navbarName].forEach(function(element) {
+            let item = this.createItem(element);
+            navbarList.append(item);
+        }.bind(this));
+        this.navbarContainer.append(this.header);
+        this.navbarContainer.append(navbarList);
+        this.navbarContainer.append(navbarList);
+        this.navbarContainer.append($(this.rightText).text(leagueName));
+        $('#navbar').html(this.navbarContainer);
     }
 }

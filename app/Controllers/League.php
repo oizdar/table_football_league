@@ -45,7 +45,7 @@ class League extends AbstractController
 
     public function updateScore(int $leagueId, int $matchId)
     {
-        $score = $this->request->getParam('score');
+        $score = trim($this->request->getParam('score'));
         if($score === null) {
             throw new InvalidArgumentException('Field score is required and should not be empty');
         }
@@ -60,5 +60,11 @@ class League extends AbstractController
         $scores = $this->matchesService->getScores($leagueId);
 
         return new Response(200, $scores);
+    }
+
+    public function getMatches(int $leagueId)
+    {
+        $matches = $this->matchesService->getLeagueMatches($leagueId);
+        return new Response(200, $matches);
     }
 }

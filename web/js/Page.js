@@ -1,7 +1,10 @@
 class Page
 {
     static get ALERT_PANEL() {
-        return '<div class="alert alert-danger"></div>';
+        return '<div class="alert alert-danger" id="alert-panel">' +
+            '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;' +
+            '<span id="error-text"></span>' +
+            '</div>';
     }
 
     static renderDefault() {
@@ -12,7 +15,7 @@ class Page
             url: '/api',
             success: function (res) {
                 if(res.code === 'OK') {
-                    let leagueList = new LeagueList(res.data);
+                    let leagueList = new LeaguesList(res.data);
                     leagueList.renderList();
                 }
             },
@@ -40,16 +43,53 @@ class Page
     }
 
     static showError(error, clearContent = true) {
-        let navbar = new NavBar();
-        navbar.nav.default[0].active = false;
-        navbar.renderDefault();
         if(clearContent === true) {
+            let navbar = new NavBar();
+            navbar.nav.default[0].active = false;
+            navbar.renderDefault();
             $('#main-container').html('');
         }
-        $('#main-container').prepend($(Page.ALERT_PANEL).text(error));
+        let alertPanel = $('#alert-panel');
+        if(alertPanel.length === 0) {
+            alertPanel = $(Page.ALERT_PANEL);
+            alertPanel.find('#error-text').text(error);
+            $('#main-container').prepend(alertPanel);
+        } else {
+            alertPanel.find('#error-text').text(error);
+        }
     }
 
-    static renderMatchesList(data) {
+    static renderLeagueMatches(leagueId, leagueName) {
+            let navbar = new NavBar();
+            navbar.render('league', leagueName);
+
+            $.ajax({
+                method: 'GET',
+                url: '/api/'+leagueId+'/matches',
+                success: function (res) {
+                    if(res.code === 'OK') {
+                        $('#main-container').load('matchesTable.html', function() {
+                            let league = new League(leagueId);
+                            league.renderMatchesTable(res.data);
+                        });
+                    }
+                },
+                error: function (error) {
+                    error = JSON.parse(error.responseText).data.error;
+                    Page.showError(error, false);
+                }
+            })
+
+
+    }
+
+    static renderLeagueScores(leagueId, leagueName) {
+        console.log(leagueId);
+        console.log(leagueName);
         let navbar = new NavBar();
+        navbar.nav.league[1].active = false;
+        navbar.nav.league[2].active = true;
+        navbar.render('league', leagueName);
+        console.log('test');
     }
 }

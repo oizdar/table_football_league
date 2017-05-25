@@ -18,3 +18,6 @@ INSERT INTO `database`.matches (league_id, team_1_player_1, team_1_player_2, tea
 INSERT INTO `database`.matches (league_id, team_1_player_1, team_1_player_2, team_2_player_1, team_2_player_2, team_1_score, team_2_score) VALUES (2, 'PlayerA', 'PlayerB', 'PlayerC', 'PlayerD', null, null);
 INSERT INTO `database`.matches (league_id, team_1_player_1, team_1_player_2, team_2_player_1, team_2_player_2, team_1_score, team_2_score) VALUES (2, 'PlayerA', 'PlayerC', 'PlayerB', 'PlayerD', null, null);
 INSERT INTO `database`.matches (league_id, team_1_player_1, team_1_player_2, team_2_player_1, team_2_player_2, team_1_score, team_2_score) VALUES (2, 'PlayerA', 'PlayerD', 'PlayerB', 'PlayerC', 1, 11);
+INSERT INTO `database`.matches (league_id, team_1_player_1, team_1_player_2, team_2_player_1, team_2_player_2, team_1_score, team_2_score) VALUES (3, 'PlayerA', 'PlayerB', 'PlayerC', 'PlayerD', null, null);
+INSERT INTO `database`.matches (league_id, team_1_player_1, team_1_player_2, team_2_player_1, team_2_player_2, team_1_score, team_2_score) VALUES (3, 'PlayerA', 'PlayerC', 'PlayerB', 'PlayerD', null, null);
+INSERT INTO `database`.matches (league_id, team_1_player_1, team_1_player_2, team_2_player_1, team_2_player_2, team_1_score, team_2_score) VALUES (3, 'PlayerA', 'PlayerD', 'PlayerB', 'PlayerC', null, null);
